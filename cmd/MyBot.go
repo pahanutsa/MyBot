@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"time"
+	
 
 	"github.com/spf13/cobra"
 	telebot "gopkg.in/telebot.v3"
@@ -46,6 +47,11 @@ to quickly create a Cobra application.`,
 
 		MyBot.Handle(telebot.OnText, func(m telebot.Context) error {
 			log.Print(m.Message().Payload, m.Text())
+			payload := m.Message().Payload
+			switch payload {
+			case "Hello":
+				err = m.Send(fmt.Sprintf("Hello, i'm Your new Bot %s!", appVersion))
+			}
 			return err
 
 		})
